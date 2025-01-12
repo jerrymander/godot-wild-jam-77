@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="MobResource" load_steps=2 format=3 uid="uid://dh8f3l0djcbli"]
+
+[ext_resource type="Script" path="res://character/mobs/mob_res.gd" id="1_uvw8b"]
+
+[resource]
+script = ExtResource("1_uvw8b")
+character_name = "Basic Paper"
+charcter_type = 1
+MAX_HEALTH = 5.0
+move_speed = 60.0

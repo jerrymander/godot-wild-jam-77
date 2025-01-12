@@ -1,0 +1,84 @@
+[gd_scene load_steps=8 format=3 uid="uid://0f5r7vrxycsb"]
+
+[ext_resource type="Script" path="res://character/player/player.gd" id="1_7kjh7"]
+[ext_resource type="Texture2D" uid="uid://c6lhhyjd8vn46" path="res://character/player/sus.png" id="2_2p4rv"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_chjfw"]
+radius = 3.0
+height = 12.0
+
+[sub_resource type="Animation" id="Animation_gfjot"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_2bk02"]
+resource_name = "idle"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_3arsu"]
+resource_name = "walk"
+length = 0.6
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 0
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.15, 0.3, 0.45),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [1, 2, 3, 4]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_i5lpb"]
+_data = {
+"RESET": SubResource("Animation_gfjot"),
+"idle": SubResource("Animation_2bk02"),
+"walk": SubResource("Animation_3arsu")
+}
+
+[node name="Player" type="CharacterBody2D" groups=["Player"]]
+collision_mask = 14
+script = ExtResource("1_7kjh7")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+y_sort_enabled = true
+texture = ExtResource("2_2p4rv")
+offset = Vector2(0, -2)
+hframes = 5
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_chjfw")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_i5lpb")
+}
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position_smoothing_speed = 3.0

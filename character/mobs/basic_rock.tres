@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="Character" load_steps=2 format=3 uid="uid://cual6qdt7tq2c"]
+
+[ext_resource type="Script" path="res://character/mobs/mob_res.gd" id="1_ftpva"]
+
+[resource]
+script = ExtResource("1_ftpva")
+character_name = "Basic Rock"
+charcter_type = 0
+MAX_HEALTH = 15.0
+move_speed = 25.0

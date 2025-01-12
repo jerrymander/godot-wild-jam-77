@@ -1,0 +1,65 @@
+[gd_scene load_steps=9 format=3 uid="uid://cvwfx8kcvver3"]
+
+[ext_resource type="PackedScene" uid="uid://b75ee676o2xx0" path="res://tile_map.tscn" id="1_cdsfu"]
+[ext_resource type="PackedScene" uid="uid://b1e0nvrnjdjay" path="res://character/mobs/basic_rock.tscn" id="2_34gqa"]
+[ext_resource type="PackedScene" uid="uid://cj56ewld25blr" path="res://character/mobs/basic_paper.tscn" id="3_ap53g"]
+[ext_resource type="PackedScene" uid="uid://0f5r7vrxycsb" path="res://character/player/player.tscn" id="4_856k4"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_78fmn"]
+normal = Vector2(0, 1)
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_5j18b"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_a4bri"]
+normal = Vector2(1, 0)
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_gyu4y"]
+normal = Vector2(-1, 0)
+
+[node name="Node2D" type="Node2D"]
+
+[node name="TileMap" parent="." instance=ExtResource("1_cdsfu")]
+
+[node name="Player" parent="." instance=ExtResource("4_856k4")]
+y_sort_enabled = true
+position = Vector2(213, 67)
+
+[node name="WorldBorder" type="StaticBody2D" parent="."]
+collision_layer = 8
+collision_mask = 3
+
+[node name="TopWall" type="CollisionShape2D" parent="WorldBorder"]
+position = Vector2(288, 0)
+shape = SubResource("WorldBoundaryShape2D_78fmn")
+
+[node name="BotWall" type="CollisionShape2D" parent="WorldBorder"]
+position = Vector2(288, 324)
+shape = SubResource("WorldBoundaryShape2D_5j18b")
+
+[node name="LeftWall" type="CollisionShape2D" parent="WorldBorder"]
+position = Vector2(0, 162)
+shape = SubResource("WorldBoundaryShape2D_a4bri")
+
+[node name="RightWall" type="CollisionShape2D" parent="WorldBorder"]
+position = Vector2(576, 162)
+shape = SubResource("WorldBoundaryShape2D_gyu4y")
+
+[node name="BasicRock" parent="." instance=ExtResource("2_34gqa")]
+position = Vector2(179, 93)
+collision_mask = 1
+
+[node name="BasicRock2" parent="." instance=ExtResource("2_34gqa")]
+position = Vector2(356, 106)
+collision_mask = 1
+
+[node name="BasicRock3" parent="." instance=ExtResource("2_34gqa")]
+position = Vector2(379, 202)
+collision_mask = 1
+
+[node name="BasicPaper" parent="." instance=ExtResource("3_ap53g")]
+position = Vector2(442, 83)
+
+[node name="BasicPaper2" parent="." instance=ExtResource("3_ap53g")]
+position = Vector2(204, 198)
+
+[node name="Menu" type="CanvasLayer" parent="."]

@@ -8,4 +8,9 @@ func _ready() -> void:
 	set("modulate", bullet.color)
 
 func _physics_process(delta: float) -> void:
-	position += direction.normalized() * bullet.speed * delta
+	if visible:
+		position += direction.normalized() * bullet.speed * delta
+
+func _on_body_entered(body: Node2D) -> void:
+	print("Hit %s." % body.name)
+	queue_free()

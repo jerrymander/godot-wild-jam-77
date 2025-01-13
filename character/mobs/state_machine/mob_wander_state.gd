@@ -10,7 +10,8 @@ func enter():
 func update(delta):
 	wander_time -= delta
 	if wander_time < 0:
-		Transitioned.emit(self, "idle")
+		transition.emit(self, "idle")
+	
 
 func physics_update(delta):
 	parent_character.velocity = wander_direction * parent_character.mob_stats.move_speed

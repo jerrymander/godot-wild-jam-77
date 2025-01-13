@@ -6,6 +6,8 @@ var states: Dictionary = {}
 @export var default_state: MobState
 var current_state: MobState
 
+signal attack
+
 func _ready() -> void:
 	if !parent_character and get_parent().is_class("MobUI"):
 		parent_character = get_parent()
@@ -17,7 +19,9 @@ func _ready() -> void:
 			states[child.name.to_lower()] = child
 			child.parent_character = parent_character
 			child.player = get_tree().get_first_node_in_group("Player")
-			child.connect("Transitioned", on_transition_states)
+			child.connect("transition", on_transition_states)
+			if child.name.to_lower() == "attack":
+				child.connect("attack", on_attack)
 	
 	current_state = default_state
 	current_state.enter()
@@ -43,4 +47,7 @@ func on_transition_states(state, transition_to_state: String):
 	var new_state = states[transition_to_state.to_lower()]
 	new_state.enter()
 	current_state = new_state
-	
+
+func on_attack() -> void:
+	print("StateMachine attack signal received.")
+	attack.emit()

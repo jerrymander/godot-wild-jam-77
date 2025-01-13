@@ -3,7 +3,7 @@ class_name MobState extends Node
 var parent_character : MobUI
 var player: Player
 
-signal Transitioned
+signal transition
 
 func enter() -> void:
 	pass

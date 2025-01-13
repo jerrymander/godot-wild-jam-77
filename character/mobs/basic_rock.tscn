@@ -1,11 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://b1e0nvrnjdjay"]
+[gd_scene load_steps=2 format=3 uid="uid://b1e0nvrnjdjay"]
 
 [ext_resource type="PackedScene" uid="uid://dy5etv357vppe" path="res://character/mobs/mob.tscn" id="1_4kyso"]
-[ext_resource type="Resource" uid="uid://cr0ooefhi5osy" path="res://attacks/bullets/rock_bullet.tres" id="2_i4mcf"]
 
-[node name="BasicRock" groups=["Mob"] instance=ExtResource("1_4kyso")]
+[node name="BasicRock" instance=ExtResource("1_4kyso")]
 
 [node name="AttackPattern" parent="." index="3"]
-bullet = ExtResource("2_i4mcf")
 pattern = 1
 number_of_bullets = 8

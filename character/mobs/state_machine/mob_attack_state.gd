@@ -1,11 +1,19 @@
-extends MobState
+class_name MobAttackState extends MobState
 
+signal attack
 
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	pass # Replace with function body.
+var attack_delay := 0.3
 
+func enter():
+	print("%s is now attacking the player." % parent_character.name)
+	parent_character.velocity = Vector2(0, 0)
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
+func update(delta):
+	attack_delay -= delta
+	if attack_delay <= 0:
+		attack.emit()
+		parent_character.reset_attack_cooldown()
+		transition.emit(self, "follow")
+
+func exit():
+	attack_delay = 0.3

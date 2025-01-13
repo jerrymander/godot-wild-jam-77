@@ -1,16 +1,11 @@
-[gd_scene load_steps=5 format=3 uid="uid://cj56ewld25blr"]
+[gd_scene load_steps=4 format=3 uid="uid://cj56ewld25blr"]
 
 [ext_resource type="PackedScene" uid="uid://dy5etv357vppe" path="res://character/mobs/mob.tscn" id="1_fe0gb"]
 [ext_resource type="Resource" uid="uid://dh8f3l0djcbli" path="res://character/mobs/basic_paper.tres" id="2_on6ja"]
 [ext_resource type="Texture2D" uid="uid://cmp4jiravd6bn" path="res://character/mobs/paper.png" id="3_xqjoc"]
-[ext_resource type="Resource" uid="uid://dv55kfhcf6lhk" path="res://attacks/bullets/paper_bullet.tres" id="4_tcgu0"]
 
-[node name="BasicPaper" groups=["Mob"] instance=ExtResource("1_fe0gb")]
+[node name="BasicPaper" instance=ExtResource("1_fe0gb")]
 mob_stats = ExtResource("2_on6ja")
 
 [node name="Sprite2D" parent="." index="0"]
 texture = ExtResource("3_xqjoc")
-
-[node name="AttackPattern" parent="." index="3"]
-bullet = ExtResource("4_tcgu0")
-attack_cooldown = 0.5

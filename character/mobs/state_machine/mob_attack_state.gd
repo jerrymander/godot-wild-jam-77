@@ -5,7 +5,6 @@ signal attack
 var attack_delay := 0.3
 
 func enter():
-	print("%s is now attacking the player." % parent_character.name)
 	parent_character.velocity = Vector2(0, 0)
 
 func update(delta):

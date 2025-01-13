@@ -3,7 +3,4 @@
 [ext_resource type="PackedScene" uid="uid://dy5etv357vppe" path="res://character/mobs/mob.tscn" id="1_4kyso"]
 
 [node name="BasicRock" instance=ExtResource("1_4kyso")]
-
-[node name="AttackPattern" parent="." index="3"]
-pattern = 1
-number_of_bullets = 8
+collision_mask = 11

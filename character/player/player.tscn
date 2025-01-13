@@ -1,7 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://0f5r7vrxycsb"]
+[gd_scene load_steps=11 format=3 uid="uid://0f5r7vrxycsb"]
 
 [ext_resource type="Script" path="res://character/player/player.gd" id="1_7kjh7"]
 [ext_resource type="Texture2D" uid="uid://c6lhhyjd8vn46" path="res://character/player/sus.png" id="2_2p4rv"]
+[ext_resource type="PackedScene" uid="uid://bumoxvedv8u2r" path="res://character/components/health_component.tscn" id="3_01hbb"]
+[ext_resource type="Shader" path="res://shaders/crt.gdshader" id="4_n6qj8"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_chjfw"]
 radius = 3.0
@@ -62,6 +64,23 @@ _data = {
 "walk": SubResource("Animation_3arsu")
 }
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_4vwsr"]
+shader = ExtResource("4_n6qj8")
+shader_parameter/resolution = Vector2(320, 180)
+shader_parameter/scan_line_amount = 0.2
+shader_parameter/warp_amount = 0.1
+shader_parameter/noise_amount = 0.03
+shader_parameter/interference_amount = 0.1
+shader_parameter/grille_amount = 0.1
+shader_parameter/grille_size = 0.2
+shader_parameter/vignette_amount = 0.3
+shader_parameter/vignette_intensity = 0.2
+shader_parameter/aberation_amount = 0.4
+shader_parameter/roll_line_amount = 0.0
+shader_parameter/roll_speed = 1.0
+shader_parameter/scan_line_strength = -8.0
+shader_parameter/pixel_strength = 0.0
+
 [node name="Player" type="CharacterBody2D" groups=["Player"]]
 collision_mask = 14
 script = ExtResource("1_7kjh7")
@@ -80,5 +99,17 @@ libraries = {
 "": SubResource("AnimationLibrary_i5lpb")
 }
 
+[node name="HealthComponent" parent="." instance=ExtResource("3_01hbb")]
+position = Vector2(-5, -10)
+scale = Vector2(1, 1)
+
 [node name="Camera2D" type="Camera2D" parent="."]
-position_smoothing_speed = 3.0
+position = Vector2(2, 0)
+position_smoothing_enabled = true
+
+[node name="ColorRect" type="ColorRect" parent="Camera2D"]
+material = SubResource("ShaderMaterial_4vwsr")
+offset_left = -576.0
+offset_top = -324.0
+offset_right = 576.0
+offset_bottom = 326.0

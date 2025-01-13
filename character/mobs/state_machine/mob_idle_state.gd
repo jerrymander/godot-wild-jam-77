@@ -4,7 +4,6 @@ var idle_time: float
 var distance_to_player: float
 
 func enter():
-	print("%s is idling." % parent_character.name)
 	parent_character.velocity = Vector2(0, 0)
 	randomize_time()
 

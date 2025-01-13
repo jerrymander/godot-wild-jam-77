@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="Bullet" load_steps=2 format=3 uid="uid://dv55kfhcf6lhk"]
+
+[ext_resource type="Script" path="res://character/attacks/bullets/bullet.gd" id="1_0u1l6"]
+
+[resource]
+script = ExtResource("1_0u1l6")
+type = 2
+damage = 1.0
+speed = 125.0
+color = Color(1, 0.950036, 0.211069, 1)

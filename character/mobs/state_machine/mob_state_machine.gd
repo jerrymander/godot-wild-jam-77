@@ -9,11 +9,6 @@ var current_state: MobState
 signal attack
 
 func _ready() -> void:
-	if !parent_character and get_parent().is_class("MobUI"):
-		parent_character = get_parent()
-	else:
-		print("MobStateMachine is not attached to a MobUI!")
-	
 	for child in get_children():
 		if child is MobState:
 			states[child.name.to_lower()] = child
@@ -49,5 +44,4 @@ func on_transition_states(state, transition_to_state: String):
 	current_state = new_state
 
 func on_attack() -> void:
-	print("StateMachine attack signal received.")
 	attack.emit()

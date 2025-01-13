@@ -1,11 +1,8 @@
-[gd_scene load_steps=16 format=3 uid="uid://dy5etv357vppe"]
+[gd_scene load_steps=13 format=3 uid="uid://dy5etv357vppe"]
 
 [ext_resource type="Script" path="res://character/mobs/mob_ui.gd" id="1_yso46"]
-[ext_resource type="Resource" uid="uid://cual6qdt7tq2c" path="res://character/mobs/basic_rock.tres" id="2_ohdde"]
 [ext_resource type="Texture2D" uid="uid://k0wblofth63f" path="res://character/mobs/rock.png" id="3_cypk2"]
-[ext_resource type="Resource" uid="uid://cr0ooefhi5osy" path="res://attacks/bullets/rock_bullet.tres" id="3_owud7"]
 [ext_resource type="Script" path="res://character/mobs/state_machine/mob_state_machine.gd" id="4_al3vj"]
-[ext_resource type="Script" path="res://attacks/patterns/attack_pattern.gd" id="4_jg64l"]
 [ext_resource type="Script" path="res://character/mobs/state_machine/mob_idle_state.gd" id="5_menal"]
 [ext_resource type="Script" path="res://character/mobs/state_machine/mob_wander_state.gd" id="7_pq3n8"]
 [ext_resource type="Script" path="res://character/mobs/state_machine/mob_follow_state.gd" id="8_hcnom"]
@@ -91,15 +88,13 @@ _data = {
 }
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_778gw"]
-size = Vector2(8, 11)
+size = Vector2(8, 7.25)
 
 [node name="Mob" type="CharacterBody2D" groups=["Mob"]]
 y_sort_enabled = true
 collision_layer = 2
 collision_mask = 9
 script = ExtResource("1_yso46")
-mob_stats = ExtResource("2_ohdde")
-bullet = ExtResource("3_owud7")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("3_cypk2")
@@ -112,9 +107,6 @@ libraries = {
 
 [node name="AnimationTree" type="AnimationTree" parent="."]
 anim_player = NodePath("../AnimationPlayer")
-
-[node name="AttackPattern" type="Node" parent="."]
-script = ExtResource("4_jg64l")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 1.5)

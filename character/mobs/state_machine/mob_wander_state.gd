@@ -4,7 +4,6 @@ var wander_time
 var wander_direction
 
 func enter():
-	print("%s is now wandering." % parent_character.name)
 	randomize_walk()
 
 func update(delta):

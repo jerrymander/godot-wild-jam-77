@@ -1,17 +1,20 @@
 class_name Player extends CharacterBody2D
 
-const SPEED := 100.0
+var speed := 100.0
 
-const COLOR_ARRAY = [Color.BLUE, Color.RED, Color.GREEN, Color.WHITE]
-var mod_color: int = 3
+const COLOR_ARRAY = [Color.DODGER_BLUE, Color.YELLOW, Color.HOT_PINK]
 
 @onready var sprite: Sprite2D = $Sprite2D
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var camera_node: Camera2D = $Camera2D
+@onready var health_node: HealthComponent = $HealthComponent
+
+enum ShieldState{ROCK, PAPER, SCISSORS, NONE}
+var shield_mode: ShieldState
 
 func _ready() -> void:
-	#camera_node.make_current()
-	pass
+	health_node.connect("dying", on_dying)
+
 
 func _physics_process(delta: float) -> void:
 	
@@ -44,9 +47,26 @@ func _unhandled_input(event: InputEvent) -> void:
 		sprite.flip_h = true
 	
 	if Input.is_action_just_pressed("shift"):
-		mod_color = (mod_color + 1) % 4
-		modulate = COLOR_ARRAY[mod_color]
+		shift_mode()
 	
 	direction = direction.normalized()
 	
-	velocity = direction * SPEED
+	velocity = direction * speed
+
+func shift_mode():
+	shield_mode = (shield_mode + 1) % 3
+	sprite.modulate = COLOR_ARRAY[shield_mode]
+
+func morph():
+	pass
+
+func hit_by(bullet: Bullet) -> void:
+	if bullet.type == shield_mode:
+		#absorb bullet to energy.
+		pass
+	else:
+		health_node.take_damage(bullet.damage)
+
+func on_dying() -> void:
+	print("Player died. Reviving...")
+	health_node.reset_health()

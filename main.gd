@@ -1,6 +1,7 @@
 extends Node2D
 
-var bullet_ui = preload("res://attacks/bullets/bullet.tscn")
+var bullet_scene = preload("res://character/attacks/bullets/bullet.tscn")
+var mob_scene = preload("res://character/mobs/mob.tscn")
 
 @onready var bullets_node: Node = $Bullets
 #maybe pool bullets in future
@@ -15,8 +16,7 @@ func _process(delta: float) -> void:
 	pass
 
 func on_bullet_fired(bullet: Bullet, bullet_position: Vector2, bullet_direction: Vector2) -> void:
-	print("%s received fire_bullet signal." % self.name)
-	var new_bullet = bullet_ui.instantiate()
+	var new_bullet = bullet_scene.instantiate()
 	new_bullet.bullet = bullet
 	new_bullet.position = bullet_position
 	new_bullet.direction = bullet_direction

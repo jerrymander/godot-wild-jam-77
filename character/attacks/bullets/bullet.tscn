@@ -1,0 +1,69 @@
+[gd_scene load_steps=14 format=3 uid="uid://djpb0ura4o1rv"]
+
+[ext_resource type="Script" path="res://character/attacks/bullets/bullet_ui.gd" id="1_nk2yi"]
+[ext_resource type="Texture2D" uid="uid://6yp4ubqlesip" path="res://character/attacks/bullets/bullet.png" id="1_t3pdd"]
+[ext_resource type="Resource" uid="uid://dv55kfhcf6lhk" path="res://character/attacks/bullets/paper_bullet.tres" id="2_ihugf"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_spo47"]
+radius = 3.0
+
+[sub_resource type="Curve" id="Curve_griss"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_3beku"]
+curve = SubResource("Curve_griss")
+
+[sub_resource type="Gradient" id="Gradient_3ebr7"]
+offsets = PackedFloat32Array(0, 0.277273, 0.859091)
+colors = PackedColorArray(1, 1, 1, 1, 0.63772, 0.636312, 0.799608, 1, 0.430283, 0.436382, 0.607935, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_2apiq"]
+gradient = SubResource("Gradient_3ebr7")
+
+[sub_resource type="Curve" id="Curve_7iryn"]
+max_value = 100.0
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_oqpvn"]
+curve = SubResource("Curve_7iryn")
+
+[sub_resource type="Curve" id="Curve_47coj"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_mgqlr"]
+curve = SubResource("Curve_47coj")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_32to7"]
+particle_flag_disable_z = true
+direction = Vector3(0, 0, 0)
+spread = 0.0
+gravity = Vector3(0, 0, 0)
+damping_curve = SubResource("CurveTexture_oqpvn")
+scale_min = 4.0
+scale_max = 4.0
+scale_curve = SubResource("CurveTexture_mgqlr")
+color = Color(0.963103, 0.963192, 0.979841, 1)
+color_ramp = SubResource("GradientTexture1D_2apiq")
+alpha_curve = SubResource("CurveTexture_3beku")
+
+[node name="Bullet" type="Area2D" groups=["Bullet"]]
+collision_layer = 4
+collision_mask = 9
+script = ExtResource("1_nk2yi")
+bullet = ExtResource("2_ihugf")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_spo47")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_t3pdd")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+amount = 20
+process_material = SubResource("ParticleProcessMaterial_32to7")
+lifetime = 0.3
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

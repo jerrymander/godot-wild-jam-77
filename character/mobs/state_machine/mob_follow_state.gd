@@ -4,7 +4,6 @@ var direction: Vector2
 var is_attacking: bool
 
 func enter():
-	print("%s is now following the player." % parent_character.name)
 	player = get_tree().get_first_node_in_group("Player")
 
 func update(delta):

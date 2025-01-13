@@ -1,0 +1,31 @@
+[gd_scene load_steps=7 format=3 uid="uid://byq7o6fio2afw"]
+
+[ext_resource type="Texture2D" uid="uid://t80jc4fdoqhp" path="res://character/components/resource_bar.png" id="1_ed7wk"]
+[ext_resource type="Script" path="res://character/components/character_resource_bar.gd" id="2_0awc4"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_urkub"]
+atlas = ExtResource("1_ed7wk")
+region = Rect2(0, 0, 10, 4)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8xpaa"]
+atlas = ExtResource("1_ed7wk")
+region = Rect2(0, 8, 10, 4)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mmbwj"]
+atlas = ExtResource("1_ed7wk")
+region = Rect2(1, 4, 8, 4)
+
+[sub_resource type="Curve" id="Curve_sv82i"]
+max_value = 5.0
+_data = [Vector2(0, 0.21978), 0.0, 0.321428, 0, 0, Vector2(0.615385, 0.604395), 2.5, 2.5, 0, 0, Vector2(1, 5), 2.57143, 0.367379, 0, 0]
+point_count = 3
+
+[node name="CharacterResourceBar" type="TextureProgressBar"]
+step = 0.01
+value = 60.0
+texture_under = SubResource("AtlasTexture_urkub")
+texture_over = SubResource("AtlasTexture_8xpaa")
+texture_progress = SubResource("AtlasTexture_mmbwj")
+texture_progress_offset = Vector2(1, 0)
+script = ExtResource("2_0awc4")
+speed_curve = SubResource("Curve_sv82i")

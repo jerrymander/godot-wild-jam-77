@@ -6,6 +6,7 @@ class_name MobUI extends CharacterBody2D
 
 @onready var sprite: Sprite2D = $Sprite2D
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
+@onready var health_node: HealthComponent = $HealthComponent
 @onready var state_machine: MobStateMachine = $StateMachine
 
 @export var attack_cooldown: float = 0.5
@@ -24,22 +25,25 @@ func _ready() -> void:
 
 func _physics_process(delta: float) -> void:
 	if velocity.x < 0:
-		sprite.flip_h = false
-	else:
 		sprite.flip_h = true
+	else:
+		sprite.flip_h = false
 	
 	if state_machine.current_state.name == "Wander" or state_machine.current_state.name == "Follow":
 		animation_player.play("walk")
 	else:
 		animation_player.play("idle")
 	
-	move_and_slide()
+	move_and_collide(velocity * delta)
 
 func _process(delta: float) -> void:
 	attack_cooldown_timer -= delta
 
 func reset_attack_cooldown() -> void:
 	attack_cooldown_timer = attack_cooldown
+
+func hit_by(attack) -> void:
+	pass
 
 func _on_attack() -> void:
 	var bullet_position = self.global_position

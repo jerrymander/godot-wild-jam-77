@@ -7,4 +7,5 @@ script = ExtResource("1_uvw8b")
 character_name = "Basic Paper"
 charcter_type = 1
 MAX_HEALTH = 5.0
-move_speed = 60.0
+move_speed = 50.0
+vision_range = 200.0

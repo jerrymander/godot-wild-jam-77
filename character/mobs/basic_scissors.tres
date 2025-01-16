@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="Character" load_steps=2 format=3 uid="uid://cqrmb4tnhs2ht"]
+[gd_resource type="Resource" script_class="MobResource" load_steps=2 format=3 uid="uid://cqrmb4tnhs2ht"]
 
 [ext_resource type="Script" path="res://character/mobs/mob_res.gd" id="1_87eng"]
 
@@ -7,4 +7,5 @@ script = ExtResource("1_87eng")
 character_name = "Basic Scissors"
 charcter_type = 2
 MAX_HEALTH = 10.0
-move_speed = 100.0
+move_speed = 65.0
+vision_range = 250.0

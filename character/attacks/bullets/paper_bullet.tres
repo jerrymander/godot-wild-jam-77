@@ -4,7 +4,7 @@
 
 [resource]
 script = ExtResource("1_0u1l6")
-type = 2
+type = 1
 damage = 1.0
 speed = 125.0
 color = Color(1, 0.950036, 0.211069, 1)

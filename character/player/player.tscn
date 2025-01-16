@@ -1,13 +1,13 @@
-[gd_scene load_steps=11 format=3 uid="uid://0f5r7vrxycsb"]
+[gd_scene load_steps=12 format=3 uid="uid://0f5r7vrxycsb"]
 
 [ext_resource type="Script" path="res://character/player/player.gd" id="1_7kjh7"]
-[ext_resource type="Texture2D" uid="uid://c6lhhyjd8vn46" path="res://character/player/sus.png" id="2_2p4rv"]
+[ext_resource type="Texture2D" uid="uid://djshrikth7b11" path="res://character/player/boxbot.png" id="2_u18sv"]
 [ext_resource type="PackedScene" uid="uid://bumoxvedv8u2r" path="res://character/components/health_component.tscn" id="3_01hbb"]
+[ext_resource type="PackedScene" uid="uid://c7liq0ghq5fl8" path="res://character/components/energy_component.tscn" id="4_1oq2l"]
 [ext_resource type="Shader" path="res://shaders/crt.gdshader" id="4_n6qj8"]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_chjfw"]
-radius = 3.0
-height = 12.0
+[sub_resource type="CircleShape2D" id="CircleShape2D_otidx"]
+radius = 6.5
 
 [sub_resource type="Animation" id="Animation_gfjot"]
 length = 0.001
@@ -87,12 +87,13 @@ script = ExtResource("1_7kjh7")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 y_sort_enabled = true
-texture = ExtResource("2_2p4rv")
+texture = ExtResource("2_u18sv")
 offset = Vector2(0, -2)
 hframes = 5
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("CapsuleShape2D_chjfw")
+position = Vector2(-0.5, 0)
+shape = SubResource("CircleShape2D_otidx")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -100,16 +101,34 @@ libraries = {
 }
 
 [node name="HealthComponent" parent="." instance=ExtResource("3_01hbb")]
-position = Vector2(-5, -10)
-scale = Vector2(1, 1)
+position = Vector2(-6, -13)
+
+[node name="EnergyComponent" parent="." instance=ExtResource("4_1oq2l")]
+position = Vector2(-6, -11)
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(2, 0)
 position_smoothing_enabled = true
 
 [node name="ColorRect" type="ColorRect" parent="Camera2D"]
+visible = false
+y_sort_enabled = true
 material = SubResource("ShaderMaterial_4vwsr")
 offset_left = -576.0
 offset_top = -324.0
 offset_right = 576.0
 offset_bottom = 326.0
+
+[node name="ShieldStateMachine" type="Node" parent="."]
+
+[node name="StateMachine" type="Node" parent="."]
+
+[node name="Walk" type="Node" parent="StateMachine"]
+
+[node name="Transforming" type="Node" parent="StateMachine"]
+
+[node name="AttackMode" type="Node" parent="StateMachine"]
+
+[node name="ShieldMode" type="Node" parent="StateMachine"]
+
+[node name="HealMode" type="Node" parent="StateMachine"]

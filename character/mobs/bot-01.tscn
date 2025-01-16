@@ -1,13 +1,15 @@
-[gd_scene load_steps=14 format=3 uid="uid://dy5etv357vppe"]
+[gd_scene load_steps=16 format=3 uid="uid://cleoirsxlv4jo"]
 
-[ext_resource type="Script" path="res://character/mobs/mob_ui.gd" id="1_yso46"]
-[ext_resource type="Texture2D" uid="uid://k0wblofth63f" path="res://character/mobs/rock.png" id="3_cypk2"]
-[ext_resource type="PackedScene" uid="uid://bumoxvedv8u2r" path="res://character/components/health_component.tscn" id="3_lyqdp"]
-[ext_resource type="Script" path="res://character/mobs/state_machine/mob_state_machine.gd" id="4_al3vj"]
-[ext_resource type="Script" path="res://character/mobs/state_machine/mob_idle_state.gd" id="5_menal"]
-[ext_resource type="Script" path="res://character/mobs/state_machine/mob_wander_state.gd" id="7_pq3n8"]
-[ext_resource type="Script" path="res://character/mobs/state_machine/mob_follow_state.gd" id="8_hcnom"]
-[ext_resource type="Script" path="res://character/mobs/state_machine/mob_attack_state.gd" id="9_ir0th"]
+[ext_resource type="Script" path="res://character/mobs/mob_ui.gd" id="1_3quru"]
+[ext_resource type="Resource" uid="uid://cqrmb4tnhs2ht" path="res://character/mobs/basic_scissors.tres" id="2_lbygc"]
+[ext_resource type="Resource" uid="uid://b34bw5idr54s8" path="res://character/attacks/bullets/scissors_bullet.tres" id="3_o5167"]
+[ext_resource type="Script" path="res://character/mobs/state_machine/mob_state_machine.gd" id="3_qbsjv"]
+[ext_resource type="Texture2D" uid="uid://bokyqsi3a4u1b" path="res://character/mobs/bot-01.png" id="4_8k2rp"]
+[ext_resource type="Script" path="res://character/mobs/state_machine/mob_idle_state.gd" id="4_r57ig"]
+[ext_resource type="PackedScene" uid="uid://bumoxvedv8u2r" path="res://character/components/health_component.tscn" id="5_3wiyn"]
+[ext_resource type="Script" path="res://character/mobs/state_machine/mob_wander_state.gd" id="5_nkt8t"]
+[ext_resource type="Script" path="res://character/mobs/state_machine/mob_follow_state.gd" id="6_csan0"]
+[ext_resource type="Script" path="res://character/mobs/state_machine/mob_attack_state.gd" id="7_dp7wv"]
 
 [sub_resource type="Animation" id="Animation_g14je"]
 length = 0.1
@@ -54,7 +56,7 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id="Animation_tc3me"]
 resource_name = "walk"
-length = 0.4
+length = 0.667
 loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -63,10 +65,10 @@ tracks/0/path = NodePath("Sprite2D:frame")
 tracks/0/interp = 0
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.2),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(0, 0.133333, 0.266667, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 1,
-"values": [0, 1]
+"values": [0, 1, 2, 3]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -75,10 +77,10 @@ tracks/1/path = NodePath("CollisionShape2D:position")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.2),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(0, 0.133333, 0.266667),
+"transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
-"values": [Vector2(0, 1.5), Vector2(0, 0.5)]
+"values": [Vector2(0, 1.5), Vector2(0, 2.5), Vector2(0, 1.5)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_4kt3x"]
@@ -89,17 +91,20 @@ _data = {
 }
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_778gw"]
-size = Vector2(8, 7.25)
+size = Vector2(6, 7)
 
-[node name="Mob" type="CharacterBody2D" groups=["Mob"]]
+[node name="Bot-01" type="CharacterBody2D" groups=["Mob"]]
 y_sort_enabled = true
+position = Vector2(0, 7)
 collision_layer = 2
 collision_mask = 9
-script = ExtResource("1_yso46")
+script = ExtResource("1_3quru")
+mob_stats = ExtResource("2_lbygc")
+bullet = ExtResource("3_o5167")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("3_cypk2")
-hframes = 2
+texture = ExtResource("4_8k2rp")
+hframes = 5
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -113,23 +118,23 @@ anim_player = NodePath("../AnimationPlayer")
 position = Vector2(0, 1.5)
 shape = SubResource("RectangleShape2D_778gw")
 
-[node name="HealthComponent" parent="." instance=ExtResource("3_lyqdp")]
+[node name="HealthComponent" parent="." instance=ExtResource("5_3wiyn")]
 visible = false
-position = Vector2(-5, -8)
+position = Vector2(-4, -13)
 
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("parent_character", "default_state")]
-script = ExtResource("4_al3vj")
+script = ExtResource("3_qbsjv")
 parent_character = NodePath("..")
 default_state = NodePath("Idle")
 
 [node name="Idle" type="Node" parent="StateMachine"]
-script = ExtResource("5_menal")
+script = ExtResource("4_r57ig")
 
 [node name="Wander" type="Node" parent="StateMachine"]
-script = ExtResource("7_pq3n8")
+script = ExtResource("5_nkt8t")
 
 [node name="Follow" type="Node" parent="StateMachine"]
-script = ExtResource("8_hcnom")
+script = ExtResource("6_csan0")
 
 [node name="Attack" type="Node" parent="StateMachine"]
-script = ExtResource("9_ir0th")
+script = ExtResource("7_dp7wv")

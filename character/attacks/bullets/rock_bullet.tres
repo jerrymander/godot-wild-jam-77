@@ -4,7 +4,7 @@
 
 [resource]
 script = ExtResource("1_j18am")
-type = 1
+type = 0
 damage = 3.0
 speed = 60.0
 color = Color(0.329947, 0.659451, 0.969444, 1)

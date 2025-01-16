@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://c7liq0ghq5fl8"]
+
+[ext_resource type="Script" path="res://character/components/energy_component.gd" id="1_choht"]
+[ext_resource type="PackedScene" uid="uid://byq7o6fio2afw" path="res://character/components/character_resource_bar.tscn" id="1_m4rbk"]
+
+[node name="EnergyComponent" type="Node2D"]
+script = ExtResource("1_choht")
+
+[node name="EnergyBar" parent="." instance=ExtResource("1_m4rbk")]
+resource_name = "Energy"

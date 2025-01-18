@@ -8,7 +8,7 @@ func enter():
 	player = get_tree().get_first_node_in_group("Player")
 
 
-func physics_update(delta):
+func physics_update(_delta):
 	
 	direction = player.global_position - parent_character.global_position
 	

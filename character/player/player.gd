@@ -3,10 +3,9 @@ class_name Player extends CharacterBody2D
 signal fire_bullet
 signal place_block
 
-var speed := 100.0
+var base_move_speed := 100.0
+var move_speed := 100.0
 const RANGE := 250.0
-
-const COLOR_ARRAY = [Color.DODGER_BLUE, Color.YELLOW, Color.HOT_PINK]
 
 var mobs_in_range: Dictionary = {}
 
@@ -19,24 +18,24 @@ var mobs_in_range: Dictionary = {}
 
 @export var bullet: Bullet
 
-enum ShieldState{ROCK, PAPER, SCISSORS, NONE}
-var shield_mode: ShieldState
+var shield_mode: Global.Damage_Type
 
 const TIME_BETWEEN_SCANS := 1
 var scan_cooldown: float = 1.0
 
+
 func _ready() -> void:
 	health_node.connect("dying", on_dying)
-	shield_mode = ShieldState.ROCK
-	sprite.modulate = COLOR_ARRAY[shield_mode]
+	shield_mode = Global.Damage_Type.ROCK
+	sprite.modulate = Global.SHIELD_COLORS[shield_mode]
 	state_machine.connect("do_action", on_doing_action)
 
 
 func _process(delta: float) -> void:
 	scan_cooldown -= delta
-	if scan_cooldown <= 0:
-		mobs_in_range = get_mobs_in_range()
-		scan_cooldown = TIME_BETWEEN_SCANS
+	#if scan_cooldown <= 0:
+	#	mobs_in_range = get_mobs_in_range()
+	#	scan_cooldown = TIME_BETWEEN_SCANS
 
 func _physics_process(delta: float) -> void:
 	
@@ -48,7 +47,7 @@ func _physics_process(delta: float) -> void:
 		animation_player.play("idle")
 	
 
-func _unhandled_key_input(event: InputEvent) -> void:
+func _unhandled_key_input(_event: InputEvent) -> void:
 	
 	var direction := Vector2(0,0)
 	
@@ -68,12 +67,12 @@ func _unhandled_key_input(event: InputEvent) -> void:
 	
 	direction = direction.normalized()
 	
-	velocity = direction * speed
+	velocity = direction * move_speed
 
 
 func shift_shield_mode():
-	shield_mode = (shield_mode + 1) % 3
-	sprite.modulate = COLOR_ARRAY[shield_mode]
+	shield_mode = (shield_mode + 1) % 3 as Global.Damage_Type
+	sprite.modulate = Global.SHIELD_COLORS[shield_mode]
 
 
 func get_mobs_in_range() -> Dictionary:
@@ -91,7 +90,8 @@ func get_mobs_in_range() -> Dictionary:
 
 func get_closest_mob() -> MobUI:
 	
-	var closest: MobUI
+	mobs_in_range = get_mobs_in_range()
+	var closest: MobUI = null
 	
 	for mob in mobs_in_range:
 		if !closest:
@@ -119,8 +119,14 @@ func on_doing_action(action: String) -> void:
 	if action == "attack":
 		var bullet_position = self.global_position
 		var target = get_closest_mob()
+		if !target:
+			return
 		var bullet_direction = (target.global_position - self.global_position).normalized()
 		fire_bullet.emit(bullet, bullet_position, bullet_direction)
 		
 	elif action == "block":
 		place_block.emit()
+
+
+func _on_max_energy_button_up() -> void:
+	energy_node.update_energy(energy_node.max_energy)

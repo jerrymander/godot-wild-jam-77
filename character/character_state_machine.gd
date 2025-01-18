@@ -34,15 +34,16 @@ func _physics_process(delta: float) -> void:
 
 func on_transition_states(state, transition_to_state: String):
 	if state != current_state:
-		print("Oops, attempting to transition from %s, but character is in %s.")
+		print("Oops, attempting to transition from %s, but character is in %s." % [current_state.name, state.name])
 		return
 	
 	if current_state:
 		current_state.exit()
 	
 	var new_state = states[transition_to_state.to_lower()]
-	new_state.enter()
 	current_state = new_state
+	new_state.enter()
+
 
 func on_doing_action(action: String) -> void:
 	do_action.emit(action)

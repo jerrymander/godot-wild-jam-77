@@ -1,7 +1,6 @@
 class_name Bullet extends Resource
 
-enum Type{ROCK, PAPER, SCISSORS, NONE}
-@export var type: Type = Type.NONE
+@export var type: Global.Damage_Type = Global.Damage_Type.NONE
 
 @export var damage: float = 1.0
 @export var speed: float = 50.0

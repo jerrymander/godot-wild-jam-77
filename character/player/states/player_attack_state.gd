@@ -2,15 +2,17 @@ class_name PlayerAttackState extends CharacterState
 
 signal do_action
 
+@export var move_speed: float = 0.0
 @export var attack_speed: float = 0.5
 @export var attack_cost: float = 4.0
+
 var attack_cooldown: float
 
 
 func enter() -> void:
 	print("Player entering Attack State...")
 	attack_cooldown = 0
-	parent_character.speed = 0
+	parent_character.move_speed = move_speed
 
 
 func update(delta) -> void:
@@ -26,7 +28,7 @@ func update(delta) -> void:
 
 func _unhandled_key_input(event: InputEvent) -> void:
 	
-	if Input.is_action_pressed("transform"):
+	if event.is_action_pressed("transform"):
 		transition.emit(self, "base")
 
 

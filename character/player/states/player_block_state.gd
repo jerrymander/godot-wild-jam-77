@@ -2,14 +2,17 @@ class_name PlayerBlockState extends CharacterState
 
 signal do_action
 
+@export var move_speed: float = 50.0
 @export var block_speed: float = 0.5
+@export var block_cost: float = 5.0
+
 var block_cooldown: float
 
 
 func enter() -> void:
 	print("Player entering Block State...")
 	block_cooldown = 0
-	parent_character.speed = 50
+	parent_character.move_speed = move_speed
 
 
 func update(delta) -> void:
@@ -25,7 +28,7 @@ func update(delta) -> void:
 
 func _unhandled_key_input(event: InputEvent) -> void:
 	
-	if Input.is_action_pressed("transform"):
+	if event.is_action_pressed("transform"):
 		transition.emit(self, "base")
 
 

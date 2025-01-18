@@ -1,6 +1,7 @@
-[gd_scene load_steps=21 format=3 uid="uid://0f5r7vrxycsb"]
+[gd_scene load_steps=22 format=3 uid="uid://0f5r7vrxycsb"]
 
 [ext_resource type="Script" path="res://character/player/player.gd" id="1_7kjh7"]
+[ext_resource type="Resource" uid="uid://byu3gqwm80lqe" path="res://character/attacks/bullets/player_bullet.tres" id="2_kxdue"]
 [ext_resource type="Texture2D" uid="uid://djshrikth7b11" path="res://character/player/boxbot.png" id="2_u18sv"]
 [ext_resource type="PackedScene" uid="uid://bumoxvedv8u2r" path="res://character/components/health_component.tscn" id="3_01hbb"]
 [ext_resource type="PackedScene" uid="uid://c7liq0ghq5fl8" path="res://character/components/energy_component.tscn" id="4_1oq2l"]
@@ -103,6 +104,7 @@ shader_parameter/pixel_strength = 0.0
 [node name="Player" type="CharacterBody2D" groups=["Player"]]
 collision_mask = 14
 script = ExtResource("1_7kjh7")
+bullet = ExtResource("2_kxdue")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-0.5, 0)
@@ -167,3 +169,27 @@ offset_left = -576.0
 offset_top = -324.0
 offset_right = 576.0
 offset_bottom = 326.0
+
+[node name="DebugPanel" type="PanelContainer" parent="."]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -26.0
+offset_top = 16.0
+offset_right = 24.0
+offset_bottom = 56.0
+grow_horizontal = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="DebugPanel"]
+layout_mode = 2
+
+[node name="Debug" type="Label" parent="DebugPanel/VBoxContainer"]
+layout_mode = 2
+text = "DEBUG PANEL"
+horizontal_alignment = 1
+
+[node name="MaxEnergy" type="Button" parent="DebugPanel/VBoxContainer"]
+layout_mode = 2
+text = "Set Energy to Max"
+
+[connection signal="button_up" from="DebugPanel/VBoxContainer/MaxEnergy" to="." method="_on_max_energy_button_up"]

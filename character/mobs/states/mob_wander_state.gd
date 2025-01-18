@@ -21,9 +21,8 @@ func update(delta):
 		transition.emit(self, "follow")
 
 
-func physics_update(delta):
+func physics_update(_delta):
 	parent_character.velocity = wander_direction * parent_character.mob_stats.move_speed
-
 
 
 func randomize_walk():

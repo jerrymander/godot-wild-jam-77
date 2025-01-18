@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://k0wblofth63f"
-path="res://.godot/imported/rock.png-9d8d554aca9a266396711f3ae316de7b.ctex"
+uid="uid://bx27oy35glys4"
+path="res://.godot/imported/box_blocker.png-b41b5899d15cf8533f2bbb5b9101bf18.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://character/mobs/rock.png"
-dest_files=["res://.godot/imported/rock.png-9d8d554aca9a266396711f3ae316de7b.ctex"]
+source_file="res://character/player/box_blocker.png"
+dest_files=["res://.godot/imported/box_blocker.png-b41b5899d15cf8533f2bbb5b9101bf18.ctex"]
 
 [params]
 

@@ -1,8 +1,8 @@
 [gd_scene load_steps=5 format=3 uid="uid://cj56ewld25blr"]
 
 [ext_resource type="PackedScene" uid="uid://dy5etv357vppe" path="res://character/mobs/mob.tscn" id="1_fe0gb"]
-[ext_resource type="Resource" uid="uid://dh8f3l0djcbli" path="res://character/mobs/basic_paper.tres" id="2_on6ja"]
-[ext_resource type="Texture2D" uid="uid://cmp4jiravd6bn" path="res://character/mobs/paper.png" id="3_xqjoc"]
+[ext_resource type="Resource" uid="uid://dh8f3l0djcbli" path="res://character/mobs/test/basic_paper.tres" id="2_on6ja"]
+[ext_resource type="Texture2D" uid="uid://cmp4jiravd6bn" path="res://character/mobs/test/paper.png" id="3_xqjoc"]
 [ext_resource type="Resource" uid="uid://dv55kfhcf6lhk" path="res://character/attacks/bullets/paper_bullet.tres" id="4_tcgu0"]
 
 [node name="BasicPaper" instance=ExtResource("1_fe0gb")]

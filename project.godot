@@ -74,8 +74,9 @@ menu={
 2d_physics/layer_1="Player"
 2d_physics/layer_2="Enemy"
 2d_physics/layer_3="Bullet"
-2d_physics/layer_4="Obstacle"
-2d_physics/layer_5="PlayerAttack"
+2d_physics/layer_4="PlayerBlock"
+2d_physics/layer_5="PlayerBullet"
+2d_physics/layer_6="Obstacle"
 
 [physics]
 

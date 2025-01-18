@@ -1,0 +1,22 @@
+[gd_scene load_steps=5 format=3 uid="uid://c6ntolws6lrpo"]
+
+[ext_resource type="Script" path="res://character/objects/block/block.gd" id="1_7ngo0"]
+[ext_resource type="Texture2D" uid="uid://bnkoel6bxuueo" path="res://character/objects/block/block.png" id="1_7oda6"]
+[ext_resource type="PackedScene" uid="uid://bumoxvedv8u2r" path="res://character/components/health_component.tscn" id="2_n7yfv"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_e5qtw"]
+size = Vector2(14, 8)
+
+[node name="Block" type="StaticBody2D"]
+collision_layer = 8
+collision_mask = 15
+script = ExtResource("1_7ngo0")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_e5qtw")
+
+[node name="HealthComponent" parent="." instance=ExtResource("2_n7yfv")]
+position = Vector2(-5, -11)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_7oda6")

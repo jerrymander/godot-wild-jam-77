@@ -1,0 +1,67 @@
+[gd_scene load_steps=13 format=3 uid="uid://mpb0x17a4t0w"]
+
+[ext_resource type="Texture2D" uid="uid://6yp4ubqlesip" path="res://character/attacks/bullets/bullet.png" id="1_3mdvh"]
+[ext_resource type="Script" path="res://character/attacks/bullets/bullet_ui.gd" id="1_4grt5"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_b5v47"]
+radius = 3.0
+
+[sub_resource type="Curve" id="Curve_2wqqb"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_3beku"]
+curve = SubResource("Curve_2wqqb")
+
+[sub_resource type="Gradient" id="Gradient_aa3ij"]
+offsets = PackedFloat32Array(0, 0.277273, 0.859091)
+colors = PackedColorArray(1, 1, 1, 1, 0.63772, 0.636312, 0.799608, 1, 0.430283, 0.436382, 0.607935, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_2apiq"]
+gradient = SubResource("Gradient_aa3ij")
+
+[sub_resource type="Curve" id="Curve_l10r0"]
+max_value = 100.0
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_oqpvn"]
+curve = SubResource("Curve_l10r0")
+
+[sub_resource type="Curve" id="Curve_n0038"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_mgqlr"]
+curve = SubResource("Curve_n0038")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_vr3i5"]
+particle_flag_disable_z = true
+direction = Vector3(0, 0, 0)
+spread = 0.0
+gravity = Vector3(0, 0, 0)
+damping_curve = SubResource("CurveTexture_oqpvn")
+scale_min = 4.0
+scale_max = 4.0
+scale_curve = SubResource("CurveTexture_mgqlr")
+color = Color(0.963103, 0.963192, 0.979841, 1)
+color_ramp = SubResource("GradientTexture1D_2apiq")
+alpha_curve = SubResource("CurveTexture_3beku")
+
+[node name="PlayerBullet" type="Area2D"]
+collision_layer = 16
+collision_mask = 34
+script = ExtResource("1_4grt5")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_b5v47")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_3mdvh")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+amount = 20
+process_material = SubResource("ParticleProcessMaterial_vr3i5")
+lifetime = 0.3
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

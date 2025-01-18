@@ -1,23 +1,42 @@
 class_name Player extends CharacterBody2D
 
+signal fire_bullet
+signal place_block
+
 var speed := 100.0
+const RANGE := 250.0
 
 const COLOR_ARRAY = [Color.DODGER_BLUE, Color.YELLOW, Color.HOT_PINK]
+
+var mobs_in_range: Dictionary = {}
 
 @onready var sprite: Sprite2D = $Sprite2D
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var camera_node: Camera2D = $Camera2D
 @onready var health_node: HealthComponent = $HealthComponent
 @onready var energy_node: EnergyComponent = $EnergyComponent
+@onready var state_machine: CharacterStateMachine = $StateMachine
+
+@export var bullet: Bullet
 
 enum ShieldState{ROCK, PAPER, SCISSORS, NONE}
 var shield_mode: ShieldState
+
+const TIME_BETWEEN_SCANS := 1
+var scan_cooldown: float = 1.0
 
 func _ready() -> void:
 	health_node.connect("dying", on_dying)
 	shield_mode = ShieldState.ROCK
 	sprite.modulate = COLOR_ARRAY[shield_mode]
+	state_machine.connect("do_action", on_doing_action)
 
+
+func _process(delta: float) -> void:
+	scan_cooldown -= delta
+	if scan_cooldown <= 0:
+		mobs_in_range = get_mobs_in_range()
+		scan_cooldown = TIME_BETWEEN_SCANS
 
 func _physics_process(delta: float) -> void:
 	
@@ -29,7 +48,7 @@ func _physics_process(delta: float) -> void:
 		animation_player.play("idle")
 	
 
-func _unhandled_input(event: InputEvent) -> void:
+func _unhandled_key_input(event: InputEvent) -> void:
 	
 	var direction := Vector2(0,0)
 	
@@ -45,20 +64,42 @@ func _unhandled_input(event: InputEvent) -> void:
 		sprite.flip_h = true
 	
 	if Input.is_action_just_pressed("shift"):
-		shift_mode()
+		shift_shield_mode()
 	
 	direction = direction.normalized()
 	
 	velocity = direction * speed
 
 
-func shift_mode():
+func shift_shield_mode():
 	shield_mode = (shield_mode + 1) % 3
 	sprite.modulate = COLOR_ARRAY[shield_mode]
 
 
-func morph():
-	pass
+func get_mobs_in_range() -> Dictionary:
+	
+	var mobs: Dictionary
+	var distance_to_mob: float
+	
+	for mob in get_tree().get_nodes_in_group("Mob"):
+		distance_to_mob = (mob.global_position - self.global_position).length()
+		if distance_to_mob < RANGE:
+			mobs[mob] = distance_to_mob
+	
+	return mobs
+
+
+func get_closest_mob() -> MobUI:
+	
+	var closest: MobUI
+	
+	for mob in mobs_in_range:
+		if !closest:
+			closest = mob
+		elif mobs_in_range[mob] < mobs_in_range[closest]:
+			closest = mob
+	
+	return closest
 
 
 func hit_by(bullet: Bullet) -> void:
@@ -71,3 +112,15 @@ func hit_by(bullet: Bullet) -> void:
 func on_dying() -> void:
 	print("Player died. Reviving...")
 	health_node.reset_health()
+
+
+func on_doing_action(action: String) -> void:
+	
+	if action == "attack":
+		var bullet_position = self.global_position
+		var target = get_closest_mob()
+		var bullet_direction = (target.global_position - self.global_position).normalized()
+		fire_bullet.emit(bullet, bullet_position, bullet_direction)
+		
+	elif action == "block":
+		place_block.emit()

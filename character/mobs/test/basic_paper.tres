@@ -4,7 +4,7 @@
 
 [resource]
 script = ExtResource("1_uvw8b")
-character_name = "Basic Paper"
+character_name = "Bot-02"
 charcter_type = 1
 MAX_HEALTH = 5.0
 move_speed = 50.0

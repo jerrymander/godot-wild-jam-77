@@ -3,13 +3,13 @@ class_name MobFollowState extends MobState
 var direction: Vector2
 var is_attacking: bool
 
+
 func enter():
 	player = get_tree().get_first_node_in_group("Player")
 
-func update(delta):
-	pass
 
 func physics_update(delta):
+	
 	direction = player.global_position - parent_character.global_position
 	
 	if direction.length() <= parent_character.mob_stats.vision_range:
@@ -20,6 +20,3 @@ func physics_update(delta):
 	
 	if direction.length() > parent_character.mob_stats.vision_range:
 		transition.emit(self, "idle")
-
-func exit():
-	pass

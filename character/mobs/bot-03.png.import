@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cmp4jiravd6bn"
-path="res://.godot/imported/paper.png-63af72eb34096579b5a54b8b33e72300.ctex"
+uid="uid://bokyqsi3a4u1b"
+path="res://.godot/imported/bot-03.png-7a80c8ca005966913abf85473ea0d6c3.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://character/mobs/paper.png"
-dest_files=["res://.godot/imported/paper.png-63af72eb34096579b5a54b8b33e72300.ctex"]
+source_file="res://character/mobs/bot-03.png"
+dest_files=["res://.godot/imported/bot-03.png-7a80c8ca005966913abf85473ea0d6c3.ctex"]
 
 [params]
 

@@ -1,13 +1,32 @@
-[gd_scene load_steps=12 format=3 uid="uid://0f5r7vrxycsb"]
+[gd_scene load_steps=21 format=3 uid="uid://0f5r7vrxycsb"]
 
 [ext_resource type="Script" path="res://character/player/player.gd" id="1_7kjh7"]
 [ext_resource type="Texture2D" uid="uid://djshrikth7b11" path="res://character/player/boxbot.png" id="2_u18sv"]
 [ext_resource type="PackedScene" uid="uid://bumoxvedv8u2r" path="res://character/components/health_component.tscn" id="3_01hbb"]
 [ext_resource type="PackedScene" uid="uid://c7liq0ghq5fl8" path="res://character/components/energy_component.tscn" id="4_1oq2l"]
 [ext_resource type="Shader" path="res://shaders/crt.gdshader" id="4_n6qj8"]
+[ext_resource type="Script" path="res://character/character_state_machine.gd" id="6_0kstp"]
+[ext_resource type="Script" path="res://character/player/states/player_transforming_state.gd" id="6_8fbou"]
+[ext_resource type="Script" path="res://character/player/states/player_base_state.gd" id="7_8jbh3"]
+[ext_resource type="Script" path="res://character/player/states/player_attack_state.gd" id="7_b4awd"]
+[ext_resource type="Texture2D" uid="uid://hb0vm3fc1idp" path="res://shaders/particle01.png" id="7_to5rx"]
+[ext_resource type="Script" path="res://character/player/states/player_block_state.gd" id="8_akjx7"]
+[ext_resource type="Script" path="res://character/player/states/player_heal_state.gd" id="9_weguq"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_otidx"]
 radius = 6.5
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_y3lux"]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_fsij3"]
+lifetime_randomness = 0.75
+particle_flag_disable_z = true
+angle_min = -180.0
+angle_max = 180.0
+spread = 180.0
+initial_velocity_min = 15.0
+initial_velocity_max = 25.0
+gravity = Vector3(0, 0, 0)
 
 [sub_resource type="Animation" id="Animation_gfjot"]
 length = 0.001
@@ -85,26 +104,56 @@ shader_parameter/pixel_strength = 0.0
 collision_mask = 14
 script = ExtResource("1_7kjh7")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-y_sort_enabled = true
-texture = ExtResource("2_u18sv")
-offset = Vector2(0, -2)
-hframes = 5
-
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-0.5, 0)
 shape = SubResource("CircleShape2D_otidx")
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-"": SubResource("AnimationLibrary_i5lpb")
-}
 
 [node name="HealthComponent" parent="." instance=ExtResource("3_01hbb")]
 position = Vector2(-6, -13)
 
 [node name="EnergyComponent" parent="." instance=ExtResource("4_1oq2l")]
 position = Vector2(-6, -11)
+
+[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("parent_character", "default_state")]
+script = ExtResource("6_0kstp")
+parent_character = NodePath("..")
+default_state = NodePath("Base")
+
+[node name="Base" type="Node" parent="StateMachine"]
+script = ExtResource("7_8jbh3")
+
+[node name="Transforming" type="Node" parent="StateMachine"]
+script = ExtResource("6_8fbou")
+
+[node name="Attack" type="Node" parent="StateMachine"]
+script = ExtResource("7_b4awd")
+
+[node name="Block" type="Node" parent="StateMachine"]
+script = ExtResource("8_akjx7")
+
+[node name="Heal" type="Node" parent="StateMachine"]
+script = ExtResource("9_weguq")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+material = SubResource("ShaderMaterial_y3lux")
+scale = Vector2(0.5, 0.5)
+amount = 12
+amount_ratio = 0.4812
+process_material = SubResource("ParticleProcessMaterial_fsij3")
+texture = ExtResource("7_to5rx")
+lifetime = 2.0
+randomness = 0.55
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+y_sort_enabled = true
+texture = ExtResource("2_u18sv")
+offset = Vector2(0, -2)
+hframes = 5
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_i5lpb")
+}
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(2, 0)
@@ -118,17 +167,3 @@ offset_left = -576.0
 offset_top = -324.0
 offset_right = 576.0
 offset_bottom = 326.0
-
-[node name="ShieldStateMachine" type="Node" parent="."]
-
-[node name="StateMachine" type="Node" parent="."]
-
-[node name="Walk" type="Node" parent="StateMachine"]
-
-[node name="Transforming" type="Node" parent="StateMachine"]
-
-[node name="AttackMode" type="Node" parent="StateMachine"]
-
-[node name="ShieldMode" type="Node" parent="StateMachine"]
-
-[node name="HealMode" type="Node" parent="StateMachine"]

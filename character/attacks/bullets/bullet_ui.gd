@@ -12,7 +12,5 @@ func _physics_process(delta: float) -> void:
 		position += direction.normalized() * bullet.speed * delta
 
 func _on_body_entered(body: Node2D) -> void:
-	if body is Player:
-		body.hit_by(bullet)
-	#print("Hit %s." % body.name)
+	body.hit_by(bullet)
 	queue_free()

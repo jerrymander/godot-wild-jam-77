@@ -1,22 +1,25 @@
-class_name MobStateMachine extends Node
+class_name CharacterStateMachine extends Node
 
-@export var parent_character: MobUI
+@export var parent_character: CharacterBody2D
 
 var states: Dictionary = {}
-@export var default_state: MobState
-var current_state: MobState
+@export var default_state: CharacterState
+var current_state: CharacterState
 
-signal attack
+var actions_array: Array[String] = ["attack", "defend", "heal"]
+
+signal do_action
 
 func _ready() -> void:
 	for child in get_children():
-		if child is MobState:
+		if child is CharacterState:
 			states[child.name.to_lower()] = child
 			child.parent_character = parent_character
-			child.player = get_tree().get_first_node_in_group("Player")
+			if not parent_character.is_in_group("Player"):
+				child.player = get_tree().get_first_node_in_group("Player")
 			child.connect("transition", on_transition_states)
-			if child.name.to_lower() == "attack":
-				child.connect("attack", on_attack)
+			if actions_array.has(child.name.to_lower()):
+				child.connect("do_action", on_doing_action)
 	
 	current_state = default_state
 	current_state.enter()
@@ -33,7 +36,7 @@ func _physics_process(delta: float) -> void:
 
 func on_transition_states(state, transition_to_state: String):
 	if state != current_state:
-		print("Oops, current state mismatched while attempting to transition states.")
+		print("Oops, attempting to transition from %s, but character is in %s.")
 		return
 	
 	if current_state:
@@ -43,5 +46,5 @@ func on_transition_states(state, transition_to_state: String):
 	new_state.enter()
 	current_state = new_state
 
-func on_attack() -> void:
-	attack.emit()
+func on_doing_action(action: String) -> void:
+	do_action.emit(action)

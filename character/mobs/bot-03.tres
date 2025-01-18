@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="MobResource" load_steps=2 format=3 uid="uid://dqwk4nresbruk"]
+
+[ext_resource type="Script" path="res://character/mobs/mob_res.gd" id="1_qg0mo"]
+
+[resource]
+script = ExtResource("1_qg0mo")
+character_name = "Bot-03"
+charcter_type = 2
+MAX_HEALTH = 10.0
+move_speed = 65.0
+vision_range = 250.0

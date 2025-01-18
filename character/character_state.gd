@@ -1,4 +1,6 @@
-class_name State extends Node
+class_name CharacterState extends Node
+
+var parent_character : CharacterBody2D
 
 signal transition
 

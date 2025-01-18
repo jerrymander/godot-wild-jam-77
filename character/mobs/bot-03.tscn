@@ -5,8 +5,8 @@
 [ext_resource type="Texture2D" uid="uid://bokyqsi3a4u1b" path="res://character/mobs/bot-03.png" id="2_pirkn"]
 [ext_resource type="Resource" uid="uid://b34bw5idr54s8" path="res://character/attacks/bullets/scissors_bullet.tres" id="3_bjo2o"]
 [ext_resource type="PackedScene" uid="uid://bumoxvedv8u2r" path="res://character/components/health_component.tscn" id="3_dy7px"]
-[ext_resource type="Script" path="res://character/character_state_machine.gd" id="4_7vcgg"]
 [ext_resource type="Script" path="res://character/mobs/states/mob_idle_state.gd" id="5_tnult"]
+[ext_resource type="Script" path="res://character/mobs/mob_state_machine.gd" id="6_6m8s3"]
 [ext_resource type="Script" path="res://character/mobs/states/mob_wander_state.gd" id="6_wuq7w"]
 [ext_resource type="Script" path="res://character/mobs/states/mob_follow_state.gd" id="7_f3uac"]
 [ext_resource type="Script" path="res://character/mobs/states/mob_attack_state.gd" id="8_uwwxl"]
@@ -124,7 +124,7 @@ visible = false
 position = Vector2(-5, -8)
 
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("parent_character", "default_state")]
-script = ExtResource("4_7vcgg")
+script = ExtResource("6_6m8s3")
 parent_character = NodePath("..")
 default_state = NodePath("Idle")
 

@@ -1,6 +1,6 @@
 class_name MobAttackState extends MobState
 
-signal attack
+signal do_action
 
 var attack_delay: float = 0.3
 
@@ -14,7 +14,7 @@ func update(delta):
 	attack_delay -= delta
 	
 	if attack_delay <= 0:
-		attack.emit()
+		do_action.emit("attack")
 		parent_character.reset_attack_cooldown()
 		transition.emit(self, "follow")
 

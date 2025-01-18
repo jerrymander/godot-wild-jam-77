@@ -7,7 +7,7 @@ class_name MobUI extends CharacterBody2D
 @onready var sprite: Sprite2D = $Sprite2D
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var health_node: HealthComponent = $HealthComponent
-@onready var state_machine: CharacterStateMachine = $StateMachine
+@onready var state_machine: MobStateMachine = $StateMachine
 
 @export var attack_cooldown: float = 0.5
 var attack_cooldown_timer
@@ -15,10 +15,10 @@ var attack_cooldown_timer
 signal fire_bullet
 
 func _ready() -> void:
-	self.add_to_group("Enemy")
+	self.add_to_group("Mob")
 	reset_attack_cooldown()
 	health_node.connect("dying", on_dying)
-	state_machine.connect("attack", on_attack)
+	state_machine.connect("do_action", on_doing_action)
 	
 	if !mob_stats:
 		mob_stats = load("res://character/mobs/basic_rock.tres")
@@ -46,10 +46,11 @@ func reset_attack_cooldown() -> void:
 func hit_by(bullet: Bullet) -> void:
 	health_node.take_damage(bullet.damage)
 
-func on_attack() -> void:
-	var bullet_position = self.global_position
-	var bullet_direction = (get_tree().get_first_node_in_group("Player").global_position - self.global_position).normalized()
-	fire_bullet.emit(bullet, bullet_position, bullet_direction)
+func on_doing_action(action: String) -> void:
+	if action == "attack":
+		var bullet_position = self.global_position
+		var bullet_direction = (get_tree().get_first_node_in_group("Player").global_position - self.global_position).normalized()
+		fire_bullet.emit(bullet, bullet_position, bullet_direction)
 
 func on_dying() -> void:
 	queue_free()

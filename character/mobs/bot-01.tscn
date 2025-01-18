@@ -8,7 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://bumoxvedv8u2r" path="res://character/components/health_component.tscn" id="5_3wiyn"]
 [ext_resource type="Script" path="res://character/mobs/states/mob_wander_state.gd" id="5_nkt8t"]
 [ext_resource type="Script" path="res://character/mobs/states/mob_follow_state.gd" id="6_csan0"]
-[ext_resource type="Script" path="res://character/character_state_machine.gd" id="6_gqoh2"]
+[ext_resource type="Script" path="res://character/mobs/mob_state_machine.gd" id="6_smsyp"]
 [ext_resource type="Script" path="res://character/mobs/states/mob_attack_state.gd" id="7_dp7wv"]
 
 [sub_resource type="Animation" id="Animation_g14je"]
@@ -123,7 +123,7 @@ visible = false
 position = Vector2(-4, -13)
 
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("parent_character", "default_state")]
-script = ExtResource("6_gqoh2")
+script = ExtResource("6_smsyp")
 parent_character = NodePath("..")
 default_state = NodePath("Idle")
 

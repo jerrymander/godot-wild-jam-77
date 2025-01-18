@@ -1,4 +1,4 @@
-class_name CharacterStateMachine extends Node
+class_name MobStateMachine extends Node
 
 @export var parent_character: CharacterBody2D
 
@@ -6,7 +6,7 @@ var states: Dictionary = {}
 @export var default_state: CharacterState
 var current_state: CharacterState
 
-var actions_array: Array[String] = ["attack", "defend", "heal"]
+var actions_array: Array[String] = ["attack"]
 
 signal do_action
 
@@ -15,6 +15,7 @@ func _ready() -> void:
 		if child is CharacterState:
 			states[child.name.to_lower()] = child
 			child.parent_character = parent_character
+			child.player = get_tree().get_first_node_in_group("Player")
 			child.connect("transition", on_transition_states)
 			if actions_array.has(child.name.to_lower()):
 				child.connect("do_action", on_doing_action)

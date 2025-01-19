@@ -7,7 +7,7 @@ var states: Dictionary = {}
 @export var default_state: CharacterState
 var current_state: CharacterState
 
-var actions_array: Array[String] = ["attack", "defend", "heal"]
+var actions_array: Array[String] = ["attack", "block", "heal"]
 
 signal do_action
 
@@ -53,3 +53,4 @@ func on_transition_states(state, transition_to_state: String):
 
 func on_doing_action(action: String) -> void:
 	do_action.emit(action)
+	print("StateMachine emitting %s signal." % action)

@@ -59,11 +59,11 @@ position = Vector2(1030, 191)
 y_sort_enabled = true
 position = Vector2(230, 124)
 
+[node name="Block" parent="Objects" instance=ExtResource("7_71oew")]
+position = Vector2(189, 123)
+
 [node name="Bullets" type="Node2D" parent="."]
 
 [node name="BulletPool" type="Node" parent="."]
 
 [node name="Menu" type="CanvasLayer" parent="."]
-
-[node name="Block" parent="." instance=ExtResource("7_71oew")]
-position = Vector2(366, 130)

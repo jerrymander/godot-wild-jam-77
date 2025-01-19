@@ -31,7 +31,9 @@ func _unhandled_key_input(event: InputEvent) -> void:
 			get_viewport().set_input_as_handled()
 		
 		if event.is_action_pressed("action") and block_cooldown <= 0:
+			parent_character.energy_node.gain_energy(-block_cost)
 			do_action.emit("block")
+			print("Emitting block signal from block state.")
 			block_cooldown = block_speed
 			get_viewport().set_input_as_handled()
 		elif event.is_action_pressed("action"):

@@ -5,6 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://bumoxvedv8u2r" path="res://character/components/health_component.tscn" id="2_n7yfv"]
 
 [node name="Block" type="StaticBody2D"]
+y_sort_enabled = true
 collision_layer = 8
 collision_mask = 15
 script = ExtResource("1_7ngo0")

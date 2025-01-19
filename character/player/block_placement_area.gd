@@ -1,7 +1,7 @@
 extends Area2D
 
 var bodies: Dictionary = {}
-var placeable: bool = false
+var placeable: bool = true
 
 func _ready() -> void:
 	#body_entered.connect(_on_body_entered)

@@ -136,7 +136,7 @@ func on_doing_action(action: String) -> void:
 		fire_bullet.emit(bullet, bullet_position, bullet_direction)
 		
 	elif action == "block":
-		if block_placement_area.placeable:
+		if !block_placement_area.has_overlapping_bodies():
 			place_block.emit(self.global_position + block_placement_offset)
 			print("%s emitting place_block signal..." % self.name)
 	

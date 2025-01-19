@@ -17,6 +17,11 @@ func _ready() -> void:
 	player.connect("fire_bullet", on_bullet_fired)
 	player.connect("place_block", on_block_placed)
 
+func _process(_delta: float) -> void:
+	for new_mob in get_tree().get_nodes_in_group("NewMob"):
+		new_mob.remove_from_group("NewMob")
+		new_mob.add_to_group("Mob")
+		new_mob.connect("fire_bullet", on_bullet_fired)
 
 func on_bullet_fired(bullet: Bullet, bullet_position: Vector2, bullet_direction: Vector2) -> void:
 	var new_bullet = bullet_scene.instantiate()

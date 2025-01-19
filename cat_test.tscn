@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=4 uid="uid://brp8k7om73dxb"]
+[gd_scene load_steps=15 format=4 uid="uid://brp8k7om73dxb"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_xl3oj"]
 [ext_resource type="PackedScene" uid="uid://b75ee676o2xx0" path="res://tile_map.tscn" id="2_var8l"]
@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://bwuyiog1d2gq1" path="res://character/spawners/spawner-03.tscn" id="7_v7sn6"]
 [ext_resource type="Resource" path="res://character/mobs/bot-03.tres" id="8_4du0s"]
 [ext_resource type="Resource" uid="uid://b34bw5idr54s8" path="res://character/attacks/bullets/scissors_bullet.tres" id="9_urase"]
+[ext_resource type="PackedScene" uid="uid://c6ntolws6lrpo" path="res://character/objects/block/block.tscn" id="10_f0kdu"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_78fmn"]
 normal = Vector2(0, 1)
@@ -48,24 +49,27 @@ shape = SubResource("WorldBoundaryShape2D_a4bri")
 position = Vector2(1152, 324)
 shape = SubResource("WorldBoundaryShape2D_gyu4y")
 
-[node name="Mobs" type="Node2D" parent="."]
+[node name="Objects" type="Node2D" parent="."]
 y_sort_enabled = true
 
-[node name="Bot-01" parent="Mobs" instance=ExtResource("4_xfh1m")]
+[node name="Bot-01" parent="Objects" instance=ExtResource("4_xfh1m")]
 position = Vector2(492, 60)
 
-[node name="Bot-03" parent="Mobs" instance=ExtResource("5_8bsx8")]
+[node name="Bot-03" parent="Objects" instance=ExtResource("5_8bsx8")]
 position = Vector2(1030, 191)
 
-[node name="Player" parent="Mobs" instance=ExtResource("6_v0run")]
+[node name="Player" parent="Objects" instance=ExtResource("6_v0run")]
 y_sort_enabled = true
 position = Vector2(230, 124)
 
-[node name="Spawner-03" parent="Mobs" instance=ExtResource("7_v7sn6")]
+[node name="Spawner-03" parent="Objects" instance=ExtResource("7_v7sn6")]
 position = Vector2(400, 400)
 spawns = ExtResource("5_8bsx8")
 mob_stats = ExtResource("8_4du0s")
 bullet = ExtResource("9_urase")
+
+[node name="Block" parent="Objects" instance=ExtResource("10_f0kdu")]
+position = Vector2(189, 123)
 
 [node name="Bullets" type="Node2D" parent="."]
 

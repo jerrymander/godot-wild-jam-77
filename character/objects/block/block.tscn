@@ -13,6 +13,7 @@ collision_mask = 15
 script = ExtResource("1_7ngo0")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+y_sort_enabled = true
 shape = SubResource("RectangleShape2D_e5qtw")
 
 [node name="HealthComponent" parent="." instance=ExtResource("2_n7yfv")]

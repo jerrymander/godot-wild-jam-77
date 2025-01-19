@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://0f5r7vrxycsb"]
+[gd_scene load_steps=22 format=3 uid="uid://0f5r7vrxycsb"]
 
 [ext_resource type="Script" path="res://character/player/player.gd" id="1_7kjh7"]
 [ext_resource type="Resource" uid="uid://byu3gqwm80lqe" path="res://character/attacks/bullets/player_bullet.tres" id="2_kxdue"]
@@ -13,12 +13,9 @@
 [ext_resource type="Texture2D" uid="uid://hb0vm3fc1idp" path="res://shaders/particle01.png" id="7_to5rx"]
 [ext_resource type="Script" path="res://character/player/states/player_block_state.gd" id="8_akjx7"]
 [ext_resource type="Script" path="res://character/player/states/player_heal_state.gd" id="9_weguq"]
-[ext_resource type="Script" path="res://character/player/debug_panel.gd" id="14_bfld1"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_otidx"]
-radius = 6.0
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_0jyqp"]
+radius = 6.5
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_y3lux"]
 
@@ -63,99 +60,9 @@ tracks/0/keys = {
 "values": [0]
 }
 
-[sub_resource type="Animation" id="Animation_semks"]
-resource_name = "transform_to_attack"
-length = 0.6
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.15, 0.3, 0.45),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 1,
-"values": [0, 4, 5, 6]
-}
-tracks/1/type = "method"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("StateMachine/Transforming")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0.566667),
-"transitions": PackedFloat32Array(1),
-"values": [{
-"args": [],
-"method": &"transform_animation_done"
-}]
-}
-
-[sub_resource type="Animation" id="Animation_8k75o"]
-resource_name = "transform_to_block"
-length = 0.6
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.15, 0.3, 0.45),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 1,
-"values": [0, 7, 8, 9]
-}
-tracks/1/type = "method"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("StateMachine/Transforming")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0.533333),
-"transitions": PackedFloat32Array(1),
-"values": [{
-"args": [],
-"method": &"transform_animation_done"
-}]
-}
-
-[sub_resource type="Animation" id="Animation_q0cpn"]
-resource_name = "transform_to_heal"
-length = 0.6
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.15, 0.3, 0.45),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 1,
-"values": [0, 10, 11, 12]
-}
-tracks/1/type = "method"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("StateMachine/Transforming")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0.533333),
-"transitions": PackedFloat32Array(1),
-"values": [{
-"args": [],
-"method": &"transform_animation_done"
-}]
-}
-
 [sub_resource type="Animation" id="Animation_3arsu"]
 resource_name = "walk"
-length = 0.5333
+length = 0.6
 loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -164,19 +71,16 @@ tracks/0/path = NodePath("Sprite2D:frame")
 tracks/0/interp = 0
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.133333, 0.266667, 0.4),
+"times": PackedFloat32Array(0, 0.15, 0.3, 0.45),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 1,
-"values": [0, 1, 2, 3]
+"values": [1, 2, 3, 4]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_i5lpb"]
 _data = {
 "RESET": SubResource("Animation_gfjot"),
 "idle": SubResource("Animation_2bk02"),
-"transform_to_attack": SubResource("Animation_semks"),
-"transform_to_block": SubResource("Animation_8k75o"),
-"transform_to_heal": SubResource("Animation_q0cpn"),
 "walk": SubResource("Animation_3arsu")
 }
 
@@ -198,22 +102,13 @@ shader_parameter/scan_line_strength = -8.0
 shader_parameter/pixel_strength = 0.0
 
 [node name="Player" type="CharacterBody2D" groups=["Player"]]
-position = Vector2(0, -5)
 collision_mask = 14
 script = ExtResource("1_7kjh7")
 bullet = ExtResource("2_kxdue")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-0.5, 0)
 shape = SubResource("CircleShape2D_otidx")
-
-[node name="BlockPlacementArea" type="Area2D" parent="."]
-position = Vector2(20, 0)
-collision_layer = 64
-collision_mask = 32
-monitorable = false
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="BlockPlacementArea"]
-shape = SubResource("RectangleShape2D_0jyqp")
 
 [node name="HealthComponent" parent="." instance=ExtResource("3_01hbb")]
 position = Vector2(-6, -13)
@@ -221,10 +116,9 @@ position = Vector2(-6, -13)
 [node name="EnergyComponent" parent="." instance=ExtResource("4_1oq2l")]
 position = Vector2(-6, -11)
 
-[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("parent_character", "debug_state_label", "default_state")]
+[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("parent_character", "default_state")]
 script = ExtResource("6_0kstp")
 parent_character = NodePath("..")
-debug_state_label = NodePath("../DebugPanel/VBoxContainer/CurrentStateLabel")
 default_state = NodePath("Base")
 
 [node name="Base" type="Node" parent="StateMachine"]
@@ -254,10 +148,9 @@ randomness = 0.55
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 y_sort_enabled = true
-position = Vector2(0, -11)
 texture = ExtResource("2_u18sv")
 offset = Vector2(0, -2)
-hframes = 13
+hframes = 5
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -265,6 +158,7 @@ libraries = {
 }
 
 [node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(2, 0)
 position_smoothing_enabled = true
 
 [node name="ColorRect" type="ColorRect" parent="Camera2D"]
@@ -277,16 +171,14 @@ offset_right = 576.0
 offset_bottom = 326.0
 
 [node name="DebugPanel" type="PanelContainer" parent="."]
-visible = false
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -74.0
+offset_left = -26.0
 offset_top = 16.0
-offset_right = 73.0
-offset_bottom = 74.0
+offset_right = 24.0
+offset_bottom = 56.0
 grow_horizontal = 2
-script = ExtResource("14_bfld1")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="DebugPanel"]
 layout_mode = 2
@@ -296,17 +188,8 @@ layout_mode = 2
 text = "DEBUG PANEL"
 horizontal_alignment = 1
 
-[node name="CurrentStateLabel" type="Label" parent="DebugPanel/VBoxContainer"]
-layout_mode = 2
-text = "Current State: "
-
 [node name="MaxEnergy" type="Button" parent="DebugPanel/VBoxContainer"]
 layout_mode = 2
 text = "Set Energy to Max"
 
-[node name="ClosePanel" type="Button" parent="DebugPanel/VBoxContainer"]
-layout_mode = 2
-text = "Close Panel"
-
 [connection signal="button_up" from="DebugPanel/VBoxContainer/MaxEnergy" to="." method="_on_max_energy_button_up"]
-[connection signal="button_up" from="DebugPanel/VBoxContainer/ClosePanel" to="DebugPanel" method="_on_close_panel_button_up"]

@@ -10,6 +10,7 @@ var attack_cooldown: float
 
 
 func enter() -> void:
+	active = true
 	print("Player entering Attack State...")
 	attack_cooldown = 0
 	parent_character.move_speed = move_speed
@@ -22,15 +23,19 @@ func update(delta) -> void:
 		transition.emit(self, "base")
 	
 	elif attack_cooldown <= 0:
+		parent_character.energy_node.gain_energy(-attack_cost)
 		do_action.emit("attack")
 		attack_cooldown = attack_speed
 
 
 func _unhandled_key_input(event: InputEvent) -> void:
-	
-	if event.is_action_pressed("transform"):
-		transition.emit(self, "base")
+	if active:
+		if event.is_action_pressed("transform"):
+			transition.emit(self, "base")
+			get_viewport().set_input_as_handled()
 
 
 func exit() -> void:
+	active = false
+	parent_character.sprite.frame = 0
 	get_viewport().set_input_as_handled()

@@ -1,6 +1,7 @@
 class_name CharacterState extends Node
 
 var parent_character : CharacterBody2D
+var active : bool
 
 signal transition
 

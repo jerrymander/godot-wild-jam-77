@@ -10,9 +10,11 @@ var block_cooldown: float
 
 
 func enter() -> void:
+	active = true
 	print("Player entering Block State...")
 	block_cooldown = 0
 	parent_character.move_speed = move_speed
+	parent_character.sprite
 
 
 func update(delta) -> void:
@@ -20,17 +22,24 @@ func update(delta) -> void:
 	
 	if parent_character.energy_node.current_energy == 0:
 		transition.emit(self, "base")
-	
-	elif block_cooldown <= 0:
-		do_action.emit("block")
-		block_cooldown = block_speed
 
 
 func _unhandled_key_input(event: InputEvent) -> void:
-	
-	if event.is_action_pressed("transform"):
-		transition.emit(self, "base")
+	if active:
+		if event.is_action_pressed("transform"):
+			transition.emit(self, "base")
+			get_viewport().set_input_as_handled()
+		
+		if event.is_action_pressed("action") and block_cooldown <= 0:
+			do_action.emit("block")
+			block_cooldown = block_speed
+			get_viewport().set_input_as_handled()
+		elif event.is_action_pressed("action"):
+			print("Block skill on cooldown.")
+			get_viewport().set_input_as_handled()
 
 
 func exit() -> void:
+	active = false
+	parent_character.sprite.frame = 0
 	get_viewport().set_input_as_handled()

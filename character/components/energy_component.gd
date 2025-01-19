@@ -9,7 +9,7 @@ var current_energy: float = 0
 
 var can_transform: bool = false
 
-func update_energy(amount: float):
+func gain_energy(amount: float):
 	current_energy += amount
 	
 	if current_energy >= transform_cost:

@@ -10,15 +10,17 @@ signal do_action
 var heal_cooldown: float
 
 func enter() -> void:
+	active = true
 	print("Player entering Heal State...")
 	heal_cooldown = 0
 	parent_character.move_speed = 125
 
 
 func _unhandled_key_input(event: InputEvent) -> void:
-	
-	if event.is_action_pressed("transform"):
-		transition.emit(self, "base")
+	if active:
+		if event.is_action_pressed("transform"):
+			transition.emit(self, "base")
+			get_viewport().set_input_as_handled()
 
 
 func update(delta) -> void:
@@ -33,4 +35,6 @@ func update(delta) -> void:
 
 
 func exit() -> void:
+	active = false
+	parent_character.sprite.frame = 0
 	get_viewport().set_input_as_handled()

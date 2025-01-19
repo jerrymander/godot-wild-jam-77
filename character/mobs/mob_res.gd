@@ -10,6 +10,7 @@ var current_health : float
 
 @export var move_speed := 100.0
 @export var vision_range := 250.0
+@export var avoid_range := 50.0
 
 #func take_damage(attack : Attack) -> void:
 #	current_health -= attack.damage

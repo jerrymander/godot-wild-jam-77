@@ -35,7 +35,7 @@ position = Vector2(576, -2000)
 shape = SubResource("WorldBoundaryShape2D_78fmn")
 
 [node name="BotWall" type="CollisionShape2D" parent="WorldBorder"]
-position = Vector2(576, 656)
+position = Vector2(577, 656)
 shape = SubResource("WorldBoundaryShape2D_5j18b")
 
 [node name="LeftWall" type="CollisionShape2D" parent="WorldBorder"]

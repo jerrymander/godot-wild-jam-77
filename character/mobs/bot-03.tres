@@ -9,3 +9,4 @@ charcter_type = 2
 MAX_HEALTH = 10.0
 move_speed = 65.0
 vision_range = 250.0
+avoid_range = 100.0

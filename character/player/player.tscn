@@ -264,7 +264,10 @@ libraries = {
 }
 
 [node name="Camera2D" type="Camera2D" parent="."]
-position_smoothing_enabled = true
+limit_left = 0
+limit_top = -2000
+limit_right = 1152
+limit_bottom = 656
 
 [node name="ColorRect" type="ColorRect" parent="Camera2D"]
 visible = false

@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://dy5etv357vppe"]
+[gd_scene load_steps=15 format=3 uid="uid://dy5etv357vppe"]
 
 [ext_resource type="Script" path="res://character/mobs/mob_ui.gd" id="1_yso46"]
 [ext_resource type="Texture2D" uid="uid://k0wblofth63f" path="res://character/mobs/test/rock.png" id="3_cypk2"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" path="res://character/mobs/mob_state_machine.gd" id="4_2lpxg"]
 [ext_resource type="Script" path="res://character/mobs/states/mob_idle_state.gd" id="5_menal"]
 [ext_resource type="Script" path="res://character/mobs/states/mob_wander_state.gd" id="7_pq3n8"]
+[ext_resource type="Script" path="res://character/mobs/states/mob_avoid_state.gd" id="8_grxmx"]
 [ext_resource type="Script" path="res://character/mobs/states/mob_follow_state.gd" id="8_hcnom"]
 [ext_resource type="Script" path="res://character/mobs/states/mob_attack_state.gd" id="9_ir0th"]
 
@@ -130,6 +131,9 @@ script = ExtResource("7_pq3n8")
 
 [node name="Follow" type="Node" parent="StateMachine"]
 script = ExtResource("8_hcnom")
+
+[node name="Avoid" type="Node" parent="StateMachine"]
+script = ExtResource("8_grxmx")
 
 [node name="Attack" type="Node" parent="StateMachine"]
 script = ExtResource("9_ir0th")

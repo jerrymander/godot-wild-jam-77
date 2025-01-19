@@ -8,4 +8,5 @@ character_name = "Bot-01"
 charcter_type = 0
 MAX_HEALTH = 15.0
 move_speed = 25.0
-vision_range = 150.0
+vision_range = 200.0
+avoid_range = 50.0

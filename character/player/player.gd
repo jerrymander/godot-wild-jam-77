@@ -16,7 +16,9 @@ signal place_block
 const RANGE := 250.0
 var base_move_speed := 100.0
 var move_speed := 100.0
+
 var block_placement_offset: Vector2 = Vector2(20, 0)
+var block_placeable: bool = true
 
 var mobs_in_range: Dictionary = {}
 
@@ -134,8 +136,9 @@ func on_doing_action(action: String) -> void:
 		fire_bullet.emit(bullet, bullet_position, bullet_direction)
 		
 	elif action == "block":
-		place_block.emit(self.global_position + block_placement_offset)
-		print("%s emitting place_block signal..." % self.name)
+		if block_placement_area.placeable:
+			place_block.emit(self.global_position + block_placement_offset)
+			print("%s emitting place_block signal..." % self.name)
 	
 	elif action == "heal":
 		energy_node.gain_energy(-3)

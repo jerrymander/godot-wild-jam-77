@@ -3,7 +3,8 @@ extends Node2D
 var bullet_scene = preload("res://character/attacks/bullets/bullet.tscn")
 var block_scene = preload("res://character/objects/block/block.tscn")
 
-@onready var bullets_node: Node = $Bullets
+@onready var bullets_node: Node2D = $Bullets
+@onready var objects_node: Node2D = $Objects
 #maybe pool bullets in future
 #var bullet_pool : Array[BulletUI]
 
@@ -25,5 +26,9 @@ func on_bullet_fired(bullet: Bullet, bullet_position: Vector2, bullet_direction:
 	bullets_node.add_child(new_bullet)
 
 
-func on_block_placed(position: Vector2):
+func on_block_placed(block_position: Vector2):
+	var new_block = block_scene.instantiate()
+	new_block.position = block_position
+	objects_node.add_child(new_block)
+	
 	print("Block placed.")

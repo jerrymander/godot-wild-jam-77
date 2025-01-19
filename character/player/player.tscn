@@ -4,6 +4,7 @@
 [ext_resource type="Resource" uid="uid://byu3gqwm80lqe" path="res://character/attacks/bullets/player_bullet.tres" id="2_kxdue"]
 [ext_resource type="Texture2D" uid="uid://djshrikth7b11" path="res://character/player/boxbot.png" id="2_u18sv"]
 [ext_resource type="PackedScene" uid="uid://bumoxvedv8u2r" path="res://character/components/health_component.tscn" id="3_01hbb"]
+[ext_resource type="Script" path="res://character/player/block_placement_area.gd" id="3_q0ysk"]
 [ext_resource type="PackedScene" uid="uid://c7liq0ghq5fl8" path="res://character/components/energy_component.tscn" id="4_1oq2l"]
 [ext_resource type="Shader" path="res://shaders/crt.gdshader" id="4_n6qj8"]
 [ext_resource type="Script" path="res://character/character_state_machine.gd" id="6_0kstp"]
@@ -15,10 +16,8 @@
 [ext_resource type="Script" path="res://character/player/states/player_heal_state.gd" id="9_weguq"]
 [ext_resource type="Script" path="res://character/player/debug_panel.gd" id="14_bfld1"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_otidx"]
-radius = 6.0
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_0jyqp"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_w1pvx"]
+size = Vector2(12, 4)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_y3lux"]
 
@@ -198,22 +197,23 @@ shader_parameter/scan_line_strength = -8.0
 shader_parameter/pixel_strength = 0.0
 
 [node name="Player" type="CharacterBody2D" groups=["Player"]]
-position = Vector2(0, -5)
 collision_mask = 14
 script = ExtResource("1_7kjh7")
 bullet = ExtResource("2_kxdue")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("CircleShape2D_otidx")
+shape = SubResource("RectangleShape2D_w1pvx")
 
 [node name="BlockPlacementArea" type="Area2D" parent="."]
 position = Vector2(20, 0)
-collision_layer = 64
-collision_mask = 32
+collision_layer = 0
+collision_mask = 40
 monitorable = false
+script = ExtResource("3_q0ysk")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="BlockPlacementArea"]
-shape = SubResource("RectangleShape2D_0jyqp")
+[node name="CollisionShape2D" type="CollisionPolygon2D" parent="BlockPlacementArea"]
+position = Vector2(-1, -4)
+polygon = PackedVector2Array(0, 7, -7, 4, 0, 1, 7, 4)
 
 [node name="HealthComponent" parent="." instance=ExtResource("3_01hbb")]
 position = Vector2(-6, -13)
@@ -254,7 +254,7 @@ randomness = 0.55
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 y_sort_enabled = true
-position = Vector2(0, -11)
+position = Vector2(0, -16)
 texture = ExtResource("2_u18sv")
 offset = Vector2(0, -2)
 hframes = 13
@@ -308,5 +308,7 @@ text = "Set Energy to Max"
 layout_mode = 2
 text = "Close Panel"
 
+[connection signal="body_entered" from="BlockPlacementArea" to="BlockPlacementArea" method="_on_body_entered"]
+[connection signal="body_exited" from="BlockPlacementArea" to="BlockPlacementArea" method="_on_body_exited"]
 [connection signal="button_up" from="DebugPanel/VBoxContainer/MaxEnergy" to="." method="_on_max_energy_button_up"]
 [connection signal="button_up" from="DebugPanel/VBoxContainer/ClosePanel" to="DebugPanel" method="_on_close_panel_button_up"]

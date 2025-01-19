@@ -1,10 +1,11 @@
-[gd_scene load_steps=11 format=4 uid="uid://cvwfx8kcvver3"]
+[gd_scene load_steps=12 format=4 uid="uid://cvwfx8kcvver3"]
 
 [ext_resource type="PackedScene" uid="uid://b75ee676o2xx0" path="res://tile_map.tscn" id="1_cdsfu"]
 [ext_resource type="Script" path="res://main.gd" id="1_km87x"]
 [ext_resource type="Script" path="res://environment/world_border.gd" id="3_30wi4"]
 [ext_resource type="PackedScene" uid="uid://0f5r7vrxycsb" path="res://character/player/player.tscn" id="4_856k4"]
 [ext_resource type="PackedScene" uid="uid://dkuky3id6t6xd" path="res://character/mobs/bot-03.tscn" id="4_os2hu"]
+[ext_resource type="PackedScene" uid="uid://c6ntolws6lrpo" path="res://character/objects/block/block.tscn" id="7_71oew"]
 [ext_resource type="PackedScene" uid="uid://cleoirsxlv4jo" path="res://character/mobs/bot-01.tscn" id="7_y1bfy"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_78fmn"]
@@ -63,3 +64,6 @@ position = Vector2(230, 124)
 [node name="BulletPool" type="Node" parent="."]
 
 [node name="Menu" type="CanvasLayer" parent="."]
+
+[node name="Block" parent="." instance=ExtResource("7_71oew")]
+position = Vector2(366, 130)
